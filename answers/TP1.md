@@ -7,3 +7,5 @@ Exercice 2 :
 - name , email , password
 Exercice 3 :
 404 Not Found cuz route doesnt exist
+Exercice 4 :
+/hello/a/b doesn’t match because {name} accepts only one URL segment.
