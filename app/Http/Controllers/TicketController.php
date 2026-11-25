@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Models\Topic;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,17 +18,19 @@ class TicketController extends Controller
             abort(400, 'The topic query parameter must be a string.');
         }
 
+        $filterByTopic = function ($query) use ($topic) {
+            if ($topic !== null && $topic !== '') {
+                $query->whereHas('topic', fn ($topicQuery) => $topicQuery->where('name', $topic));
+            }
+
+            return $query;
+        };
+
         return view('tickets.index', [
-            'helping' => Ticket::helping()
-                ->when($topic, fn ($query) => $query->where('topic', $topic))
-                ->get(),
-            'waiting' => Ticket::waiting()
-                ->when($topic, fn ($query) => $query->where('topic', $topic))
-                ->get(),
-            'doneCount' => Ticket::where('status', 'done')
-                ->when($topic, fn ($query) => $query->where('topic', $topic))
-                ->count(),
-            'topics' => Ticket::TOPICS,
+            'helping' => $filterByTopic(Ticket::helping())->get(),
+            'waiting' => $filterByTopic(Ticket::waiting())->get(),
+            'doneCount' => $filterByTopic(Ticket::where('status', 'done'))->count(),
+            'topics' => Topic::orderBy('name')->get(),
         ]);
     }
 
@@ -35,9 +38,12 @@ class TicketController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:50'],
-            'topic' => ['required', Rule::in(Ticket::TOPICS)],
+            'topic' => ['required', 'exists:topics,name'],
             'description' => ['nullable', 'string', 'max:500'],
         ]);
+        $topic = Topic::where('name', $validated['topic'])->firstOrFail();
+        unset($validated['topic']);
+        $validated['topic_id'] = $topic->id;
         Ticket::create($validated);
 
         return redirect()->route('tickets.index')->with('message', 'You are in the
@@ -68,7 +74,7 @@ queue!');
 
     public function create()
     {
-        return view('tickets.create', ['topics' => Ticket::TOPICS]);
+        return view('tickets.create', ['topics' => Topic::orderBy('name')->pluck('name')]);
     }
 
     public function destroy(Ticket $ticket)

@@ -15,3 +15,7 @@ select * from "tickets" where "status" = ? order by "id" asc
 ## Exercise 3
 
 **Question 3:** After the two status changes in Exercises 1 and 2, six seeded tickets remain waiting. A newly created ticket is at the end of the queue, so six people are ahead of it.
+
+## Exercise 4
+
+**Question 4:** The badges show the topic model serialized as JSON, including its `id`, `name`, and timestamps. Blade is rendering the related `Topic` model itself rather than a text value; Exercise 5 changes the expression to `$ticket->topic->name`.

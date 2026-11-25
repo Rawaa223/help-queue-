@@ -4,7 +4,7 @@
 <h1>Help queue</h1>
 <nav aria-label="Filter tickets by topic">
 @foreach ($topics as $topic)
-<a href="{{ route('tickets.index', ['topic' => $topic]) }}">{{ $topic }}</a>
+<a href="{{ route('tickets.index', ['topic' => $topic->name]) }}">{{ $topic->name }}</a>
 @endforeach
 </nav>
 <h2>Being helped</h2>
