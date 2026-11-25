@@ -23,3 +23,7 @@ select * from "tickets" where "status" = ? order by "id" asc
 ## Exercise 5
 
 **Question 5:** “The selected topic id is invalid.” The `exists:topics,id` validation rule produced the message because topic ID `99` does not exist.
+
+## Exercise 6
+
+**Question 6:** The Git topic page shows 2 tickets in the current seeded database. This count can vary after reseeding because the factory assigns topics randomly.
