@@ -11,3 +11,7 @@
 ```sql
 select * from "tickets" where "status" = ? order by "id" asc
 ```
+
+## Exercise 3
+
+**Question 3:** After the two status changes in Exercises 1 and 2, six seeded tickets remain waiting. A newly created ticket is at the end of the queue, so six people are ahead of it.
