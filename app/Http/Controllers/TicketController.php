@@ -1,10 +1,21 @@
 <?php
+
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+
+use App\Models\Ticket;
+use Illuminate\Contracts\View\View;
+
 class TicketController extends Controller
 {
-public function index()
-{
-return view('tickets.index');
-}
+    public function index(): View
+    {
+        $tickets = Ticket::orderBy('created_at')->get();
+
+        return view('tickets.index', ['tickets' => $tickets]);
+    }
+
+    public function show(Ticket $ticket): View
+    {
+        return view('tickets.show', ['ticket' => $ticket]);
+    }
 }
