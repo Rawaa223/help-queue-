@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "C:\\Users\\epi.bs\\AppData\\Local\\Microsoft\\WinGet\\Packages\\PHP.PHP.8.5_Microsoft.Winget.Source_8wekyb3d8bbwe\\php.exe",
+            "args": [
+                "C:\\Users\\epi.bs\\Desktop\\Rawaa\\help-queue\\artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
