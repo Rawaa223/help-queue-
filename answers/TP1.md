@@ -11,3 +11,6 @@ Exercice 4 :
 /hello/a/b doesn’t match because {name} accepts only one URL segment.
 Exercice 5 :
 /hello/<marquee>Bob displays the tag as text because Blade's {{ }} escapes values instead of rendering them as HTML.
+Exercice 7 :
+7 columns 
+created_at and updated_at are created together by $table->timestamps(). The id column is created by $table->id().
