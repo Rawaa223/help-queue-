@@ -38,4 +38,9 @@ queue!');
     {
         return view('tickets.create', ['topics' => Ticket::TOPICS]);
     }
+    public function destroy(Ticket $ticket)
+{
+$ticket->delete();
+return redirect()->route('tickets.index')->with('message', 'Ticket removed.');
+}
 }
