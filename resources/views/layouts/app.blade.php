@@ -15,13 +15,19 @@ margin-bottom: 12px; }
 
 .topic { background: #eef2ff; border-radius: 99px; padding: 2px 10px; font-
 size: 14px; margin-left: 8px; }
-
+.flash { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding:
+10px 14px; }
+.error { color: #b91c1c; }
 </style>
 </head>
 <body>
 <header>
-<a href="/tickets">Help Queue</a>
+<a href="{{ route('tickets.index') }}">Help Queue</a>
+<a href="{{ route('tickets.create') }}">+ Ask for help</a>
 </header>
+@if (session('message'))
+<p class="flash">{{ session('message') }}</p>
+@endif
 <main>
 @yield('content')
 </main>
