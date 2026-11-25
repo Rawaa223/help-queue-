@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -44,6 +45,18 @@ queue!');
     public function show(Ticket $ticket)
     {
         return view('tickets.show', ['ticket' => $ticket]);
+    }
+
+    public function update(Request $request, Ticket $ticket): RedirectResponse
+    {
+        $validated = $request->validate([
+            'status' => ['required', Rule::in(Ticket::STATUSES)],
+        ]);
+
+        $ticket->status = $validated['status'];
+        $ticket->save();
+
+        return redirect()->route('tickets.show', $ticket)->with('message', 'Status updated.');
     }
 
     public function create()
