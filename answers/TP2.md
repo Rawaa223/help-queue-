@@ -52,3 +52,10 @@ POST       tickets .............................................................
   GET|HEAD   tickets/{ticket} ......................................................................................... tickets.show › TicketController@show
   DELETE     tickets/{ticket} ................................................................................... tickets.destroy › TicketController@destroy
 
+Final questions : 
+
+1- The /tickets/{ticket} route matched create as a ticket ID. Since no ticket with that ID existed, Laravel’s model binding returned 404. The specific /tickets/create route must come before the dynamic route.
+
+2- @csrf helps protect against Cross-Site Request Forgery. Without a valid token, Laravel returns 419 Page Expired.
+
+3- Users can change or bypass form choices in the browser or send a crafted request. Server-side validation enforces that submitted data is allowed.
