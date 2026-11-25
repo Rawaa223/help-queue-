@@ -17,14 +17,16 @@ class TicketController extends Controller
             abort(400, 'The topic query parameter must be a string.');
         }
 
-        $ticketsQuery = Ticket::query()->orderBy('created_at');
-        if ($topic !== null && $topic !== '') {
-            $ticketsQuery->where('topic', $topic);
-        }
-        $tickets = $ticketsQuery->get();
-
         return view('tickets.index', [
-            'tickets' => $tickets,
+            'helping' => Ticket::helping()
+                ->when($topic, fn ($query) => $query->where('topic', $topic))
+                ->get(),
+            'waiting' => Ticket::waiting()
+                ->when($topic, fn ($query) => $query->where('topic', $topic))
+                ->get(),
+            'doneCount' => Ticket::where('status', 'done')
+                ->when($topic, fn ($query) => $query->where('topic', $topic))
+                ->count(),
             'topics' => Ticket::TOPICS,
         ]);
     }

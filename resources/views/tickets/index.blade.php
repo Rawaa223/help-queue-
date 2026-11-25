@@ -7,14 +7,17 @@
 <a href="{{ route('tickets.index', ['topic' => $topic]) }}">{{ $topic }}</a>
 @endforeach
 </nav>
-<p>{{ $tickets->count() }} waiting</p>
-@forelse ($tickets as $ticket)
-<article class="ticket"><a href="{{ route('tickets.show', $ticket) }}">Details</a>
-<strong>{{ $loop->iteration }}. <a href="{{ route('tickets.show', $ticket) }}">{{ $ticket->name }}</a></strong>
-<span class="topic">{{ $ticket->topic }}</span>
-<p>{{ $ticket->description }}</p>
-</article><a href="{{ route('tickets.show', $ticket) }}">Details</a>
+<h2>Being helped</h2>
+@forelse ($helping as $ticket)
+@include('tickets._card', ['ticket' => $ticket])
+@empty
+<p>Nobody right now.</p>
+@endforelse
+<h2>Waiting ({{ $waiting->count() }})</h2>
+@forelse ($waiting as $ticket)
+@include('tickets._card', ['ticket' => $ticket, 'position' => $loop->iteration])
 @empty
 <p>Nobody is waiting.</p>
 @endforelse
+<p>{{ $doneCount }} solved so far.</p>
 @endsection
