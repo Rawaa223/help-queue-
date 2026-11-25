@@ -33,3 +33,9 @@ select * from "tickets" where "status" = ? order by "id" asc
 **Question 7:** `/queue.json` returns a JSON array containing only waiting tickets, with each ticket's topic included. The root URL (`/`) redirects to the ticket queue.
 
 **Why provide JSON for another client?** A mobile app or a separate frontend can consume structured ticket data without parsing the HTML pages.
+
+## Exercise 8
+
+**Question 8:** The README documents a repeatable setup from cloning the repository through installing dependencies, preparing SQLite, migrating and seeding the database, building frontend assets, and starting the Laravel server.
+
+**Exercise 8.2:** Not completed because a neighbor's repository URL was not provided.
