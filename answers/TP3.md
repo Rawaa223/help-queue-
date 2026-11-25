@@ -27,3 +27,9 @@ select * from "tickets" where "status" = ? order by "id" asc
 ## Exercise 6
 
 **Question 6:** The Git topic page shows 2 tickets in the current seeded database. This count can vary after reseeding because the factory assigns topics randomly.
+
+## Exercise 7
+
+**Question 7:** `/queue.json` returns a JSON array containing only waiting tickets, with each ticket's topic included. The root URL (`/`) redirects to the ticket queue.
+
+**Why provide JSON for another client?** A mobile app or a separate frontend can consume structured ticket data without parsing the HTML pages.
