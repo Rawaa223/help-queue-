@@ -15,4 +15,10 @@ Exercice 7 :
 7 columns 
 created_at and updated_at are created together by $table->timestamps(). The id column is created by $table->id().
 Exercice 8 : 
-   Error  Class "Ticket" not found.
+Error  Class "Ticket" not found.
+Final questions : 
+1 - For /tickets, the request flows through public/index.php → bootstrap/app.php → routes/web.php → TicketController::index() in app/Http/Controllers/TicketController.php → the Ticket model in app/Models/Ticket.php to fetch records → resources/views/tickets/index.blade.php, which uses resources/views/layouts/app.blade.php to render the page.
+
+2 -A migration is a version-controlled definition of database changes. It lets the team apply the same schema consistently across environments and roll changes back, unlike a manually created table.
+
+3 - Ticket::create(...) uses mass assignment, which Eloquent protects by default. Without $fillable, Eloquent blocks assigning those attributes and throws a mass-assignment exception.
