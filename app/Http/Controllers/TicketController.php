@@ -9,11 +9,23 @@ use Illuminate\Validation\Rule;
 
 class TicketController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $tickets = Ticket::orderBy('created_at')->get();
+        $topic = $request->query('topic');
+        if ($topic !== null && ! is_string($topic)) {
+            abort(400, 'The topic query parameter must be a string.');
+        }
 
-        return view('tickets.index', ['tickets' => $tickets]);
+        $ticketsQuery = Ticket::query()->orderBy('created_at');
+        if ($topic !== null && $topic !== '') {
+            $ticketsQuery->where('topic', $topic);
+        }
+        $tickets = $ticketsQuery->get();
+
+        return view('tickets.index', [
+            'tickets' => $tickets,
+            'topics' => Ticket::TOPICS,
+        ]);
     }
 
     public function store(Request $request)
@@ -38,9 +50,11 @@ queue!');
     {
         return view('tickets.create', ['topics' => Ticket::TOPICS]);
     }
+
     public function destroy(Ticket $ticket)
-{
-$ticket->delete();
-return redirect()->route('tickets.index')->with('message', 'Ticket removed.');
-}
+    {
+        $ticket->delete();
+
+        return redirect()->route('tickets.index')->with('message', 'Ticket removed.');
+    }
 }
