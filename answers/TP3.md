@@ -19,3 +19,7 @@ select * from "tickets" where "status" = ? order by "id" asc
 ## Exercise 4
 
 **Question 4:** The badges show the topic model serialized as JSON, including its `id`, `name`, and timestamps. Blade is rendering the related `Topic` model itself rather than a text value; Exercise 5 changes the expression to `$ticket->topic->name`.
+
+## Exercise 5
+
+**Question 5:** “The selected topic id is invalid.” The `exists:topics,id` validation rule produced the message because topic ID `99` does not exist.

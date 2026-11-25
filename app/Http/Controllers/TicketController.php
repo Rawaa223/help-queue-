@@ -27,8 +27,8 @@ class TicketController extends Controller
         };
 
         return view('tickets.index', [
-            'helping' => $filterByTopic(Ticket::helping())->get(),
-            'waiting' => $filterByTopic(Ticket::waiting())->get(),
+            'helping' => $filterByTopic(Ticket::with('topic')->helping())->get(),
+            'waiting' => $filterByTopic(Ticket::with('topic')->waiting())->get(),
             'doneCount' => $filterByTopic(Ticket::where('status', 'done'))->count(),
             'topics' => Topic::orderBy('name')->get(),
         ]);
@@ -38,12 +38,9 @@ class TicketController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:50'],
-            'topic' => ['required', 'exists:topics,name'],
+            'topic_id' => ['required', 'exists:topics,id'],
             'description' => ['nullable', 'string', 'max:500'],
         ]);
-        $topic = Topic::where('name', $validated['topic'])->firstOrFail();
-        unset($validated['topic']);
-        $validated['topic_id'] = $topic->id;
         Ticket::create($validated);
 
         return redirect()->route('tickets.index')->with('message', 'You are in the
@@ -74,7 +71,7 @@ queue!');
 
     public function create()
     {
-        return view('tickets.create', ['topics' => Topic::orderBy('name')->pluck('name')]);
+        return view('tickets.create', ['topics' => Topic::orderBy('name')->get()]);
     }
 
     public function destroy(Ticket $ticket)
