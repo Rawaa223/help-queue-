@@ -1,0 +1,6 @@
+- [X] php artisan migrate:fresh --seed gives 8 tickets 
+- [X] joining the queue adds a ticket at the end, with the green message
+- [X] an empty form shows two error messages
+- [X] a refused form keeps the name I typed
+- [X] Details opens the right ticket; /tickets/999 answers 404
+- [X] deleting asks for confirmation and shows Ticket removed.
