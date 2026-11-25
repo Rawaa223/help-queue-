@@ -14,3 +14,5 @@ Exercice 5 :
 Exercice 7 :
 7 columns 
 created_at and updated_at are created together by $table->timestamps(). The id column is created by $table->id().
+Exercice 8 : 
+   Error  Class "Ticket" not found.
